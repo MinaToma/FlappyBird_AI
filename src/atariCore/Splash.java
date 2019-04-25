@@ -27,7 +27,7 @@ public class Splash {
             @Override
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);
-                g.drawImage(getImage("src/Resources/Images/background/splash.png", 1), 0, 0, null);
+                g.drawImage(getImage("src/Resources/Images/background.png", 1), 0, 0, null);
             }
         };
 

@@ -21,6 +21,9 @@ public class Bird extends BaseObject {
     @Override
     public void tick() {
 
+        setImage(flappyHelper.birds[numOfPic++/20]);
+        numOfPic%=80;
+
     }
 
     @Override

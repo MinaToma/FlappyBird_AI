@@ -60,7 +60,6 @@ public class Helper {
         setButtonBackgroundColor(new Color(0x171C28));
         setForegroundColor(new Color(165, 209, 77));
         setHUDColor(new Color(173, 173, 173));
-
         loadImages();
     }
 

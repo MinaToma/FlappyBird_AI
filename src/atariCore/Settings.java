@@ -3,7 +3,7 @@ package atariCore;
 import javax.swing.*;
 import java.awt.*;
 
-import static arkanoid.arkHelper.pathCursor;
+
 import static atariCore.Helper.*;
 
 public class Settings extends JPanel {
