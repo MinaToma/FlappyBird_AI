@@ -11,16 +11,16 @@ abstract public class AIEngine {
 
     static public CopyOnWriteArrayList<Double> rewards = new CopyOnWriteArrayList<>();
     public static int slack = 0;
-    private static ArrayList<Float> AIReward;
     private static ArrayList<Float> AIInput;
 
     public AIEngine() {
+
     }
 
     public static void startAI() throws IOException {
         try
         {
-            String command = "/home/mina/anaconda3/bin/python3 src/AI-Scripts/__main__.py";
+            String command = "/home/mina/anaconda3/bin/python3 /mnt/844C248E4C247CD4/AI-Engine/main.py";
             Process p = Runtime.getRuntime().exec(command);
         }
         catch (Exception e)
@@ -29,8 +29,11 @@ abstract public class AIEngine {
         }
     }
 
-    public static void initializeReward(ArrayList<Float> action) {
-        AIReward = action;
+    public static void initializeReward(ArrayList<String> action) {
+        ArrayList<String> sz = new ArrayList<>();
+        sz.add(String.valueOf(action.size()));
+        FileInOut.writeFile("/mnt/844C248E4C247CD4/AI-Engine/actionSize.txt" , sz);
+        FileInOut.writeFile( "/mnt/844C248E4C247CD4/AI-Engine/action.txt", action);
     }
 
     public static void initializeInput(ArrayList<Float> input) {
@@ -50,9 +53,9 @@ abstract public class AIEngine {
         String Data = new String();
 
         try {
-            PrintWriter writer = new PrintWriter("src/Resources/AI-Interaction/interaction.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt", "UTF-8");
 
-            writer.println("predection");
+            writer.println("prediction");
 
             System.out.println("inside Dir");
 
@@ -61,8 +64,8 @@ abstract public class AIEngine {
 
             writer.close();
 
-            while (Data == null || (Data.equals("same") == false && Data.equals("right") == false && Data.equals("left") == false))
-                Data = waitForPrediciton(Data);
+            while (Data == null || (Data.equals("press") == false && Data.equals("none") == false ) )
+                Data = waitForPrediction(Data);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -73,7 +76,7 @@ abstract public class AIEngine {
 
     static public void train() {
         try {
-            PrintWriter writer = new PrintWriter("src/Resources/AI-Interaction/interaction.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt", "UTF-8");
             writer.println("training");
             writer.println(rewards.size());
 
@@ -89,10 +92,10 @@ abstract public class AIEngine {
         String Data = new String();
 
         while (Data == null || Data.equals("done") == false)
-            Data = waitForPrediciton(Data);
+            Data = waitForPrediction(Data);
 
         try {
-            PrintWriter writer = new PrintWriter("src/Resources/AI-Interaction/interaction.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt", "UTF-8");
             writer.println("");
             writer.close();
         } catch (Exception e) {
@@ -101,10 +104,10 @@ abstract public class AIEngine {
         rewards.clear();
     }
 
-    private static String waitForPrediciton(String Data)
+    private static String waitForPrediction(String Data)
     {
         try {
-            FileReader fr = new FileReader("src/Resources/AI-Interaction/interaction.txt");
+            FileReader fr = new FileReader("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt");
             BufferedReader br = new BufferedReader(fr);
 
             Data = br.readLine();

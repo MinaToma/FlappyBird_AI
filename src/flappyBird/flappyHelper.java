@@ -12,7 +12,9 @@ public class flappyHelper extends Helper {
     public static Image pipDown;
     public static Image pipUp;
     public static String pathImages  ="src/Resources/Images/";
-
+    public static float gravity = 0.01f;
+    public static float pressSpeed = -1;
+    public static double currTime = -100;
     public static boolean startGame = false;
 
 
@@ -25,8 +27,6 @@ public class flappyHelper extends Helper {
     public flappyHelper() {
 
         setImages();
-
-
     }
 
     private void setImages()
@@ -41,8 +41,5 @@ public class flappyHelper extends Helper {
         pipDown = getImage(pathImages+"pipDOWN.png",2);
 
         pipUp = getImage(pathImages+"pipUP.png",2);
-
-
     }
-
 }
