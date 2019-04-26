@@ -60,7 +60,8 @@ public class Bird extends BaseObject {
         float dist = 1e9f;
         for(BaseObject o : pipList)
             if(o.getX() >= getX())
-                dist = Math.min(dist , Math.abs(o.getX() - getX()));
+                dist = Math.min(dist , Math.abs(o.getX() - (getX() + getImageWidth())));
+         if(dist == 0) ((Player)playerList.get(0)).setScore((((Player) playerList.get(0)).getScore() + 1));
         return dist;
     }
 
@@ -92,5 +93,23 @@ public class Bird extends BaseObject {
             }
         }
         return re;
+    }
+
+    public boolean withen() {
+        float uY = getDistFromUpperPip();
+        float dY = getDistFromLowerPip();
+
+        if(getY() > uY && getY() + getImageHeight() < dY) return true;
+        return false;
+
+    }
+
+    public int getDist() {
+        float uY = getDistFromUpperPip();
+        float dY = getDistFromLowerPip();
+
+        float center = (uY + dY / 2);
+
+        return (int)Math.abs(center - getY());
     }
 }

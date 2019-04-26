@@ -26,6 +26,7 @@ public class FlappyBird extends Game {
         setBird();
         setPip();
         running = true;
+        startGame = true;
 
         initialize();
     }
@@ -59,10 +60,9 @@ public class FlappyBird extends Game {
         int initialX = screenWidth + 10;
         int initialY;
         for (int i = 0; i < 6; i++) {
-            initialY = Math.abs(rand.nextInt() % (screenHeight)) + 1;
-            initialY = Math.min(initialY, screenHeight - heightGap - 100);
-            initialY = Math.max(initialY, heightGap + 100);
-            initialY = screenHeight / 2;
+            initialY = screenHeight/5;
+//            initialY = Math.min(initialY, screenHeight - heightGap - 100);
+//            initialY = Math.max(initialY, heightGap + 100);
             Pip pipD = new Pip(initialX, initialY - pipDown.getHeight(null), pipDown, -1, 0);
             Pip pipU = new Pip(initialX, initialY + heightGap, pipUp, -1, 0);
 
@@ -141,14 +141,12 @@ public class FlappyBird extends Game {
 
         ArrayList<Float> inputData = new ArrayList<>();
         inputData.add(bird.getDistFromPip());
-        inputData.add(bird.getDistFromUpperPip());
-        inputData.add(bird.getDistFromLowerPip());
+        inputData.add(bird.getY() - bird.getDistFromUpperPip());
+        inputData.add(bird.getDistFromLowerPip() - bird.getY());
 
         AIEngine.initializeInput(inputData);
-      //  System.out.println("out Dir");
         String dir = AIEngine.getDIR();
 
-     //   System.out.println("after Dir");
         if (dir.equals("press")) {
 
             bird.speedUp();

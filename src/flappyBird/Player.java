@@ -24,7 +24,7 @@ public class Player extends BaseObject {
     FlappyBird flappyBird;
     private int previousScore;
 
-    public Player(String Name, JPanel panel , FlappyBird flappyBird) {
+    public Player(String Name, JPanel panel, FlappyBird flappyBird) {
         super(10, 10, null);
         this.name = Name;
         this.panel = panel;
@@ -42,8 +42,6 @@ public class Player extends BaseObject {
             new Splash();
         } else {
 
-            currTime = -10000;
-            flappyBird.sendDataToAI();
             flappyAIEngine.train();
             setScore(0);
             setPreviousScore(0);
@@ -79,5 +77,19 @@ public class Player extends BaseObject {
 
     public void setPreviousScore(int previousScore) {
         this.previousScore = previousScore;
+    }
+
+    public boolean isGoingToDie() {
+
+        Bird bird = (Bird)birdList.get(0);
+
+        float _X = bird.getDistFromPip();
+        float uY = bird.getDistFromUpperPip();
+        float dY = bird.getDistFromLowerPip();
+
+        if(_X < 10 + bird.getImageWidth() && ((uY > 0 && dY > 0) || (uY < 0 && dY < 0) ))
+            return true;
+
+        return false;
     }
 }

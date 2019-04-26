@@ -1,6 +1,7 @@
 package flappyBird;
 
 import atariCore.AIEngine;
+import atariCore.Helper;
 
 import static atariCore.AIEngine.initializeReward;
 import static atariCore.Helper.*;

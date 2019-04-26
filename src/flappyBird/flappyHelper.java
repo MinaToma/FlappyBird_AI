@@ -19,7 +19,7 @@ public class flappyHelper extends Helper {
 
 
     public static int widthGap = 450;
-    public static int heightGap = 300;
+    public static int heightGap =600;// 300;
 
     public static MP3Player backgroundSound;
 
@@ -35,7 +35,7 @@ public class flappyHelper extends Helper {
         for(int i=1 ; i<=4; i++)
             birds[i-1] = getImage(pathImages+"bird/"+i+".png",9);
 
-        heightGap = birds[0].getHeight(null)*3;
+        heightGap = birds[0].getHeight(null)*5;
         background = getImage(pathImages+"background.png",1);
 
         pipDown = getImage(pathImages+"pipDOWN.png",2);
