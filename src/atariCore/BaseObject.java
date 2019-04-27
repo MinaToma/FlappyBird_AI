@@ -49,14 +49,6 @@ abstract public class BaseObject {
         return image;
     }
 
-    public void clamp() {
-
-        x = Math.min(x, Helper.screenWidth - imageWidth);
-        x = Math.max(x, 0);
-
-        y = Math.min(y, Helper.screenHeight - imageHeight);
-        y = Math.max(y, 0);
-    }
 
     public void setX(float x) {
         this.x = x;

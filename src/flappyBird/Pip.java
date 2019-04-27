@@ -1,5 +1,6 @@
 package flappyBird;
 
+import atariCore.Background;
 import atariCore.BaseObject;
 
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.util.Random;
 import static atariCore.BaseObjectList.handler;
 import static atariCore.Helper.screenHeight;
 import static flappyBird.ObjectList.pipList;
+import static flappyBird.ObjectList.playerList;
 import static flappyBird.flappyHelper.*;
 
 public class Pip extends BaseObject {
@@ -34,13 +36,42 @@ public class Pip extends BaseObject {
     private void modfiyPip()
     {
         boolean needPip = false;
+        float pos=0;
         for(BaseObject o:pipList)
         {
-            if(o.getX()+ pipDown.getWidth(null)<0) {
+            if(o.getX()+ o.getImageWidth()<0) {
+                System.out.println(o.getY());
+                pos=o.getX();
                 handler.removeObject(pipList, o);
                 needPip = true;
+                break;
             }
         }
+        float dist = 100;
+        if(needPip)
+        {
+
+            for(BaseObject o:pipList)
+            {
+                if(Math.abs( o.getX() - pos)<dist) {
+                    dist = Math.abs( o.getX() - pos);
+                }
+
+            }
+            for(BaseObject o:pipList)
+            {
+                if(Math.abs( o.getX() - pos)==dist) {
+                    handler.removeObject(pipList, o);
+                    break;
+                }
+
+            }
+
+
+        }
+
+
+
         int lastPosPip=0;
         for(BaseObject o:pipList)
         {
@@ -49,10 +80,12 @@ public class Pip extends BaseObject {
 
         if(needPip)
         {
+
+            ((Player)playerList.get(0)).lastScore++;
             Random rand  = new Random();
-            int  initialY = Math.abs(rand.nextInt()%(screenHeight))+1;
-            initialY = Math.min(initialY,screenHeight-heightGap-100);
-            initialY = Math.max(initialY,heightGap+100);
+            int  initialY = screenHeight/5;
+            //initialY = Math.min(initialY,screenHeight-heightGap-100);
+            //initialY = Math.max(initialY,heightGap+100);
             Pip pipD = new Pip(lastPosPip + widthGap ,initialY - pipDown.getHeight(null),pipDown,-1,0);
             Pip pipU = new Pip(lastPosPip + widthGap  ,initialY + heightGap,pipUp,-1,0);
 

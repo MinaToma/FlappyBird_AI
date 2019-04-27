@@ -43,3 +43,4 @@ public class flappyHelper extends Helper {
         pipUp = getImage(pathImages+"pipUP.png",2);
     }
 }
+

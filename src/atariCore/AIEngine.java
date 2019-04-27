@@ -20,7 +20,7 @@ abstract public class AIEngine {
     public static void startAI() throws IOException {
         try
         {
-            String command = "/home/mina/anaconda3/bin/python3 /mnt/844C248E4C247CD4/AI-Engine/main.py";
+            String command = "/home/mehisen/anaconda3/bin/python3 /home/mehisen/PycharmProjects/ML/main.py";
             Process p = Runtime.getRuntime().exec(command);
         }
         catch (Exception e)
@@ -32,8 +32,8 @@ abstract public class AIEngine {
     public static void initializeReward(ArrayList<String> action) {
         ArrayList<String> sz = new ArrayList<>();
         sz.add(String.valueOf(action.size()));
-        FileInOut.writeFile("/mnt/844C248E4C247CD4/AI-Engine/actionSize.txt" , sz);
-        FileInOut.writeFile( "/mnt/844C248E4C247CD4/AI-Engine/action.txt", action);
+        FileInOut.writeFile("/home/mehisen/PycharmProjects/ML/actionSize.txt" , sz);
+        FileInOut.writeFile( "/home/mehisen/PycharmProjects/ML/action.txt", action);
     }
 
     public static void initializeInput(ArrayList<Float> input) {
@@ -53,11 +53,11 @@ abstract public class AIEngine {
         String Data = new String();
 
         try {
-            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/home/mehisen/PycharmProjects/ML/interactions.txt", "UTF-8");
 
             writer.println("prediction");
 
-            System.out.println("inside Dir");
+            //System.out.println("inside Dir");
 
             for(Float val : AIInput)
                 writer.println(val);
@@ -75,13 +75,17 @@ abstract public class AIEngine {
     }
 
     static public void train() {
+
+
+
         try {
-            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/home/mehisen/PycharmProjects/ML/interactions.txt", "UTF-8");
             writer.println("training");
             writer.println(rewards.size());
 
             for (int i = 0; i < rewards.size(); i++) {
                 writer.println(rewards.get(i));
+
             }
 
             writer.close();
@@ -95,7 +99,7 @@ abstract public class AIEngine {
             Data = waitForPrediction(Data);
 
         try {
-            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/home/mehisen/PycharmProjects/ML/interactions.txt", "UTF-8");
             writer.println("");
             writer.close();
         } catch (Exception e) {
@@ -107,7 +111,7 @@ abstract public class AIEngine {
     private static String waitForPrediction(String Data)
     {
         try {
-            FileReader fr = new FileReader("/mnt/844C248E4C247CD4/AI-Engine/interactions.txt");
+            FileReader fr = new FileReader("/home/mehisen/PycharmProjects/ML/interactions.txt");
             BufferedReader br = new BufferedReader(fr);
 
             Data = br.readLine();

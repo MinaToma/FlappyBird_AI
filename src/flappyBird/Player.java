@@ -17,8 +17,9 @@ import static flappyBird.flappyHelper.*;
 public class Player extends BaseObject {
 
     private int score;
+    public int distace;
     private String name;
-
+    public int lastScore;
     public boolean start;
     private JPanel panel;
     FlappyBird flappyBird;
@@ -29,7 +30,8 @@ public class Player extends BaseObject {
         this.name = Name;
         this.panel = panel;
         this.flappyBird = flappyBird;
-
+        lastScore = 0;
+        distace = 0;
         previousScore = 0;
         score = 0;
         start = true;
@@ -45,12 +47,14 @@ public class Player extends BaseObject {
             flappyAIEngine.train();
             setScore(0);
             setPreviousScore(0);
+            lastScore = 0;
+            distace = 0;
             flappyBird.initialize();
         }
     }
 
     public void setScore(int score) {
-        this.score = score;
+        this.score = score + lastScore;
     }
 
     public void increaseScore(int add) {
@@ -63,7 +67,7 @@ public class Player extends BaseObject {
 
     @Override
     public void tick() {
-
+        distace+=1;
     }
 
 
@@ -87,9 +91,10 @@ public class Player extends BaseObject {
         float uY = bird.getDistFromUpperPip();
         float dY = bird.getDistFromLowerPip();
 
-        if(_X < 10 + bird.getImageWidth() && ((uY > 0 && dY > 0) || (uY < 0 && dY < 0) ))
+        if( _X -10 <= bird.getX()+ bird.getImageWidth()  && ( uY >= bird.getY()  || dY<= bird.getY()-bird.getImageHeight()  ) )
             return true;
 
         return false;
     }
 }
+

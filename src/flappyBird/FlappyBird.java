@@ -140,7 +140,9 @@ public class FlappyBird extends Game {
         running = false;
 
         ArrayList<Float> inputData = new ArrayList<>();
-        inputData.add(bird.getDistFromPip());
+        //inputData.add(bird.getDistFromPip()+pipDown.getWidth(null) - bird.getX()+(bird.getImageWidth()/2));
+        //inputData.add((float)bird.getDist());
+        inputData.add(bird.getDistFromPip()-bird.getX() + bird.getImageWidth());
         inputData.add(bird.getY() - bird.getDistFromUpperPip());
         inputData.add(bird.getDistFromLowerPip() - bird.getY());
 
@@ -161,3 +163,4 @@ public class FlappyBird extends Game {
         running = true;
     }
 }
+
