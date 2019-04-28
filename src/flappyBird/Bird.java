@@ -1,6 +1,7 @@
 package flappyBird;
 
 import atariCore.BaseObject;
+import atariCore.Sound;
 
 import java.awt.*;
 
@@ -46,7 +47,8 @@ public class Bird extends BaseObject {
 
     public void speedUp() {
 
-        velY = -2;
+        velY = -1;
+        Sound.Play(wingSound,true);
     }
 
     private void collision() {
@@ -61,8 +63,10 @@ public class Bird extends BaseObject {
         if (rec.y <= 0 || rec.y + rec.height >= screenHeight && !delete)
             handler.removeObject(birdList, this);
 
-        if (birdList.size() == 0)
+        if (birdList.size() == 0) {
+            Sound.Play(hitSound,true);
             ((Player) playerList.get(0)).die();
+        }
     }
 
     @Override
@@ -119,6 +123,8 @@ public class Bird extends BaseObject {
         ((Player) playerList.get(0)).increaseScore(passedPip ? 1 : 0);
 
         currentScore += passedPip ? 1 : 0;
+        if(passedPip)
+            Sound.Play(pointSound,true);
 
          return passedPip;
     }

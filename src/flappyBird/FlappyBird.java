@@ -61,9 +61,7 @@ public class FlappyBird extends Game {
         int initialX = screenWidth + 10;
         int initialY;
         for (int i = 0; i < 6; i++) {
-            initialY = screenHeight/5;
-//            initialY = Math.min(initialY, screenHeight - heightGap - 100);
-//            initialY = Math.max(initialY, heightGap + 100);
+            initialY = rand.nextInt(maxHeight)+minHeight;
             Pip pipD = new Pip(initialX, initialY - pipDown.getHeight(null), pipDown, -1, 0);
             Pip pipU = new Pip(initialX, initialY + heightGap, pipUp, -1, 0);
 

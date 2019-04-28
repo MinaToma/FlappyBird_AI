@@ -40,7 +40,6 @@ public class Pip extends BaseObject {
         for(BaseObject o:pipList)
         {
             if(o.getX()+ o.getImageWidth()<0) {
-                System.out.println(o.getY());
                 pos=o.getX();
                 handler.removeObject(pipList, o);
                 needPip = true;
@@ -83,9 +82,7 @@ public class Pip extends BaseObject {
 
             ((Player)playerList.get(0)).lastScore++;
             Random rand  = new Random();
-            int  initialY = screenHeight/5;
-            //initialY = Math.min(initialY,screenHeight-heightGap-100);
-            //initialY = Math.max(initialY,heightGap+100);
+            int initialY = rand.nextInt(maxHeight)+minHeight;
             Pip pipD = new Pip(lastPosPip + widthGap ,initialY - pipDown.getHeight(null),pipDown,-1,0);
             Pip pipU = new Pip(lastPosPip + widthGap  ,initialY + heightGap,pipUp,-1,0);
 

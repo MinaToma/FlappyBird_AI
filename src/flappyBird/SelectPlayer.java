@@ -2,12 +2,14 @@ package flappyBird;
 
 
 import atariCore.Helper;
+import atariCore.Sound;
 
 
 import javax.swing.*;
 import java.awt.*;
 
 import static atariCore.Helper.*;
+import static flappyBird.flappyHelper.clickSound;
 
 public class SelectPlayer extends JPanel {
 
@@ -64,11 +66,13 @@ public class SelectPlayer extends JPanel {
         startButton.addActionListener(e -> {
             if (textName.getText().length() > 0 && textName.getText().length() <= 20) {
                 String name = textName.getText();
+                Sound.Play(clickSound, false);
                 new FlappyBird("Flappy Bird",name);
             }
         });
 
         backButton.addActionListener(e->{
+            Sound.Play(clickSound, false);
             new Splash();
         });
     }

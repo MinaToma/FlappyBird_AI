@@ -67,8 +67,8 @@ public class Player extends BaseObject {
         g.setColor(Color.white);
         g.setFont(font);
         String strScore = String.valueOf(score);
-        g.drawString(name,20,30);
-        g.drawString(strScore,20,80);
+        g.drawString(name,10,40);
+        g.drawString(strScore,10,80);
     }
 }
 

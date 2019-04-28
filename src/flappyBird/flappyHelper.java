@@ -1,6 +1,7 @@
 package flappyBird;
 
 import atariCore.Helper;
+import atariCore.Sound;
 import jaco.mp3.player.MP3Player;
 
 import java.awt.*;
@@ -18,16 +19,31 @@ public class flappyHelper extends Helper {
 
 
     public static int widthGap = 450;
-    public static int heightGap =600;// 300;
+    public static int heightGap = 200;
+    public static int maxHeight = 400;
+    public static int minHeight = 30;
 
-    public static MP3Player backgroundSound;
-    public static MP3Player hit;
-    public static MP3Player wav;
+
+    public static MP3Player hitSound;
+    public static MP3Player wingSound;
+    public static MP3Player pointSound;
+    public static MP3Player selectSound;
+    public static MP3Player clickSound;
+
 
 
     public flappyHelper() {
 
         setImages();
+        setSounds();
+    }
+    private void setSounds()
+    {
+        hitSound = Sound.setSound("src/Resources/Sounds/hit.mp3");
+        wingSound = Sound.setSound("src/Resources/Sounds/wing.mp3");
+        pointSound = Sound.setSound("src/Resources/Sounds/point.mp3");
+        selectSound = Sound.setSound("src/Resources/Sounds/select.mp3");
+        clickSound = Sound.setSound("src/Resources/Sounds/click.mp3");
     }
 
     private void setImages()
@@ -36,7 +52,7 @@ public class flappyHelper extends Helper {
         for(int i=1 ; i<=4; i++)
             birds[i-1] = getImage(pathImages+"bird/"+i+".png",9);
 
-        heightGap = birds[0].getHeight(null)*5;
+        heightGap = birds[0].getHeight(null)*4;
         background = getImage(pathImages+"background.png",1);
 
         pipDown = getImage(pathImages+"pipDOWN.png",2);
