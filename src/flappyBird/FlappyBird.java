@@ -143,8 +143,9 @@ public class FlappyBird extends Game {
         //inputData.add(bird.getDistFromPip()+pipDown.getWidth(null) - bird.getX()+(bird.getImageWidth()/2));
         //inputData.add((float)bird.getDist());
         inputData.add(bird.getDistFromPip()-bird.getX() + bird.getImageWidth());
-        inputData.add(bird.getY() - bird.getDistFromUpperPip());
-        inputData.add(bird.getDistFromLowerPip() - bird.getY());
+        inputData.add(bird.getDistFromUpperPip());
+        inputData.add(bird.getDistFromLowerPip());
+        inputData.add(bird.getY());
 
         AIEngine.initializeInput(inputData);
         String dir = AIEngine.getDIR();

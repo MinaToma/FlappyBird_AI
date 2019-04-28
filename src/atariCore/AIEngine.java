@@ -57,7 +57,7 @@ abstract public class AIEngine {
 
             writer.println("prediction");
 
-            //System.out.println("inside Dir");
+            System.out.println("inside Dir");
 
             for(Float val : AIInput)
                 writer.println(val);

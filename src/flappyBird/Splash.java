@@ -16,7 +16,7 @@ public class Splash extends atariCore.Splash {
 
         newGameButton.addActionListener(e -> {
 
-            new FlappyBird("Flappy Bird","AI");
+            new SelectPlayer();
         });
 
         AIButton.addActionListener(e -> {

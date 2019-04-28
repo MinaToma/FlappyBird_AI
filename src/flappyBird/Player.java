@@ -72,7 +72,11 @@ public class Player extends BaseObject {
 
 
     public void render(Graphics g) {
-
+        g.setColor(Color.white);
+        g.setFont(font);
+        String strScore = String.valueOf(score);
+        g.drawString(name,20,30);
+        g.drawString(strScore,20,80);
     }
 
     public int getPreviousScore() {

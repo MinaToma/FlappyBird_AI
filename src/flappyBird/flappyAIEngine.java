@@ -12,16 +12,15 @@ public class flappyAIEngine extends AIEngine {
         double reward = 0;
 
         reward = player.distace;
-        reward -= bird.getDist();
+        reward -= (bird.getDist() * bird.getDist());
         /*for(int i = rewards.size() - 1 , j = 0 ;i >= 0 && j < 200 ; i-- , j++) {
             reward += 1;
             rewards.set(i , rewards.get(i) + 1);
         }*/
 
         if(player.getScore() > player.getPreviousScore()) {
-            System.out.println("Hena");
-            reward += 10000;
-            rewards.forEach(e -> e += 10000);
+
+            reward += 10000000;
         }
         /*
         System.out.println(player.getScore());
@@ -39,7 +38,7 @@ public class flappyAIEngine extends AIEngine {
         }*/
 
         rewards.add(reward);
-        //System.out.println("the rewerd is " + reward);
+        System.out.println("the rewerd is " + reward);
         player.setPreviousScore(player.getScore());
 
         return 0;

@@ -22,6 +22,8 @@ public class flappyHelper extends Helper {
     public static int heightGap =600;// 300;
 
     public static MP3Player backgroundSound;
+    public static MP3Player hit;
+    public static MP3Player wav;
 
 
     public flappyHelper() {
