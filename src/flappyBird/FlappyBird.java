@@ -14,31 +14,32 @@ public class FlappyBird extends Game {
 
     Player player;
     Bird bird;
-
+    public FlappyAIEngine myGeneration;
+    int numberOfBirds  = 50;
 
     public FlappyBird(String title, String playerName) {
         super(title);
 
         playerList.clear();
-
         setBackground();
         setPlayer(playerName);
-        setBird();
         setPip();
-        running = true;
-        startGame = true;
-
         initialize();
     }
 
     public void initialize() {
         birdList.clear();
         pipList.clear();
-
         backgroundList.clear();
 
+        if(!AIMode) {
+            setBird();
+        }
+        else {
+            myGeneration = new FlappyAIEngine(numberOfBirds);
+        }
+
         setBackground();
-        setBird();
         setPip();
         running = true;
     }
@@ -103,18 +104,20 @@ public class FlappyBird extends Game {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
+        if(!AIMode) {
+            int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_P) {
+            if (key == KeyEvent.VK_P) {
 
-            pause = !pause;
-        } else if (key == KeyEvent.VK_ESCAPE) {
+                pause = !pause;
+            } else if (key == KeyEvent.VK_ESCAPE) {
 
-            new Splash();
-        } else if (key == KeyEvent.VK_SPACE && !startGame)
-            startGame = true;
-        else if (key == KeyEvent.VK_SPACE) {
-            bird.speedUp();
+                new Splash();
+            } else if (key == KeyEvent.VK_SPACE && !startGame)
+                startGame = true;
+            else if (key == KeyEvent.VK_SPACE) {
+                bird.speedUp();
+            }
         }
     }
 
@@ -133,35 +136,7 @@ public class FlappyBird extends Game {
 
     @Override
     protected void sendDataToAI() {
-
-        if (player.getScore() == 0)
-            player.setPreviousScore(0);
-
-        running = false;
-
-        ArrayList<Float> inputData = new ArrayList<>();
-        //inputData.add(bird.getDistFromPip()+pipDown.getWidth(null) - bird.getX()+(bird.getImageWidth()/2));
-        //inputData.add((float)bird.getDist());
-        inputData.add(bird.getDistFromPip()-bird.getX() + bird.getImageWidth());
-        inputData.add(bird.getDistFromUpperPip());
-        inputData.add(bird.getDistFromLowerPip());
-        inputData.add(bird.getY());
-
-        AIEngine.initializeInput(inputData);
-        String dir = AIEngine.getDIR();
-
-        if (dir.equals("press")) {
-
-            bird.speedUp();
-        }
-
-        if (player.getPreviousScore() - player.getScore() == 0)
-            AIEngine.slack += 0.01;
-        else
-            AIEngine.slack = 0;
-
-        flappyAIEngine.calculateReward(player);
-        running = true;
+        myGeneration.getAction();
     }
 }
 

@@ -10,6 +10,8 @@ import static flappyBird.flappyHelper.*;
 public class Bird extends BaseObject {
 
     private int numOfPic;
+    int previousScore = 0;
+    int currentScore = 0;
 
     public Bird(float x, float y, Image image) {
         super(x, y, image);
@@ -24,17 +26,19 @@ public class Bird extends BaseObject {
     @Override
     public void tick() {
 
-        setImage(flappyHelper.birds[numOfPic++/20]);
-        numOfPic%=80;
+        if (startGame) {
+            setImage(flappyHelper.birds[numOfPic++ / 20]);
+            numOfPic %= 80;
 
-        move();
-        collision();
+            move();
+            collision();
 
-        getReward();
+            getReward();
+        }
     }
 
     private void move() {
-        if(startGame)
+        if (startGame)
             y += velY;
 
         velY += gravity;
@@ -42,104 +46,92 @@ public class Bird extends BaseObject {
 
     public void speedUp() {
 
-        velY = Math.max(-4 , velY + pressSpeed);
+        velY = -2;
     }
 
     private void collision() {
-        for(BaseObject p : pipList)
-            if(p.getRectangle().intersects(getRectangle()))
-                ((Player)playerList.get(0)).die();
+        boolean delete = false;
+        for (BaseObject p : pipList)
+            if (!delete && p.getRectangle().intersects(getRectangle())) {
+                handler.removeObject(birdList, this);
+                delete = true;
+            }
 
         Rectangle rec = getRectangle();
-        if(rec.y<=0 || rec.y+rec.height>=screenHeight)
-            ((Player)playerList.get(0)).die();
+        if (rec.y <= 0 || rec.y + rec.height >= screenHeight && !delete)
+            handler.removeObject(birdList, this);
 
+        if (birdList.size() == 0)
+            ((Player) playerList.get(0)).die();
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(this.image,(int)x,(int)y,null);
+        g.drawImage(this.image, (int) x, (int) y, null);
     }
 
     public Float getDistFromPip() {
         float dist = 1e9f;
-        for(BaseObject o : pipList){
-            if(o.getX() >= getX())
-                dist = Math.min(dist , o.getX() );}
+        for (BaseObject o : pipList)
+            if (o.getX() >= getX())
+                dist = Math.min(dist, o.getX());
 
         return dist;
     }
-    public void getReward()
-    {
-        int cnt = 0;
-        for(BaseObject o : pipList)
-        {
-            if(o.getY()>0 && o.getX()+o.getImageWidth() <x)
-                cnt++;
-        }
-        ((Player)playerList.get(0)).setScore(cnt);
+
+    public float getCenterOfNextHole() {
+        float uY = getDistFromUpperPip();
+        float dY = getDistFromLowerPip();
+
+        return (uY + dY) / 2;
     }
 
     public Float getDistFromUpperPip() {
 
-        float dist = 1e9f;
-        for(BaseObject o : pipList){
-            if(o.getX() >= getX())
-                dist = Math.min(dist , o.getX() );}
+        float dist = getDistFromPip();
 
         float re = 1e9f;
-        for(BaseObject o : pipList) {
-            if(dist == o.getX() && o.getY() < 0) {
-
-                re = Math.min(re , o.getY() + o.getImageHeight());
-            }
-        }
+        for (BaseObject o : pipList)
+            if (dist == o.getX())
+                re = Math.min(re, o.getY() + o.getImageHeight());
 
         return re;
     }
 
     public Float getDistFromLowerPip() {
-        float dist = 1e9f;
-        for(BaseObject o : pipList){
-            if(o.getX() >= getX())
-                dist = Math.min(dist , o.getX() );}
-
+        float dist = getDistFromPip();
 
         float re = -1e9f;
-        for(BaseObject o : pipList) {
-            if(dist == o.getX() && o.getY() > 0) {
-
-                re = Math.max(re , o.getY());
-            }
-        }
+        for (BaseObject o : pipList)
+            if (dist == o.getX())
+                re = Math.max(re, o.getY());
 
         return re;
     }
 
-    public boolean withen() {
-        float uY = getDistFromUpperPip();
-        float dY = getDistFromLowerPip();
+    public boolean getReward() {
+        boolean passedPip = false;
 
-        if(getY() > uY && getY() + getImageHeight() < dY) return true;
-        return false;
+        for (BaseObject o : pipList)
+            if (o.getY() > 0 && Math.abs(o.getX() + o.getImageWidth() / 2f - x) == 0)
+                passedPip = true;
 
+        ((Player) playerList.get(0)).increaseScore(passedPip ? 1 : 0);
+
+        currentScore += passedPip ? 1 : 0;
+
+         return passedPip;
     }
 
-    public int getDist() {
-        float uY = getDistFromUpperPip();
-        float dY = getDistFromLowerPip();
-
-        float center = ((uY + dY) / 2);
-
-
-        return (int)Math.abs(center - ((getY()+(getImageHeight()/2))));
+    public int getScoreDifference() {
+        int dif = currentScore - previousScore;
+        previousScore = currentScore;
+        return dif;
     }
+
     @Override
-    public Rectangle getRectangle()
-    {
-        Bird bird = (Bird) birdList.get(0);
-        //System.out.println(          Math.min( Math.abs((bird.getY() + bird.getImageWidth()/2) - bird.getDistFromLowerPip() ) , Math.abs((bird.getY() + bird.getImageWidth()/2) - bird.getDistFromUpperPip())  ));
-        return new Rectangle((int)x+10,(int)y+5,imageWidth-20,imageHeight-10);
+    public Rectangle getRectangle() {
+        return new Rectangle((int) x + 10, (int) y + 5, imageWidth - 20, imageHeight - 10);
     }
 }
 

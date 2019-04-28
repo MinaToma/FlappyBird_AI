@@ -14,7 +14,6 @@ public class flappyHelper extends Helper {
     public static String pathImages  ="src/Resources/Images/";
     public static float gravity = 0.01f;
     public static float pressSpeed = -1;
-    public static double currTime = -100;
     public static boolean startGame = false;
 
 
