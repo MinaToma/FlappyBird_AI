@@ -11,17 +11,21 @@ import static flappyBird.flappyHelper.*;
 public class Bird extends BaseObject {
 
     private int numOfPic;
-    int previousScore = 0;
-    int currentScore = 0;
+    private int previousScore ;
+    private int currentScore ;
 
     public Bird(float x, float y, Image image) {
         super(x, y, image);
         numOfPic = 0;
+        previousScore = 0;
+        currentScore = 0;
     }
 
     public Bird(float x, float y, Image image, float velX, float velY) {
         super(x, y, image, velX, velY);
         numOfPic = 0;
+        previousScore = 0;
+        currentScore = 0;
     }
 
     @Override
@@ -48,7 +52,8 @@ public class Bird extends BaseObject {
     public void speedUp() {
 
         velY = -1;
-        Sound.Play(wingSound,true);
+        if (!AIMode)
+            Sound.Play(wingSound, true);
     }
 
     private void collision() {
@@ -64,7 +69,9 @@ public class Bird extends BaseObject {
             handler.removeObject(birdList, this);
 
         if (birdList.size() == 0) {
-            Sound.Play(hitSound,true);
+            if (!AIMode)
+                Sound.Play(hitSound, true);
+
             ((Player) playerList.get(0)).die();
         }
     }
@@ -120,13 +127,14 @@ public class Bird extends BaseObject {
             if (o.getY() > 0 && Math.abs(o.getX() + o.getImageWidth() / 2f - x) == 0)
                 passedPip = true;
 
-        ((Player) playerList.get(0)).increaseScore(passedPip ? 1 : 0);
 
         currentScore += passedPip ? 1 : 0;
-        if(passedPip)
-            Sound.Play(pointSound,true);
 
-         return passedPip;
+        ((Player) playerList.get(0)).setScore(currentScore);
+        if (passedPip && !AIMode)
+            Sound.Play(pointSound, true);
+
+        return passedPip;
     }
 
     public int getScoreDifference() {

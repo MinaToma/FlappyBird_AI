@@ -32,6 +32,7 @@ public class FlappyBird extends Game {
         pipList.clear();
         backgroundList.clear();
 
+
         if(!AIMode) {
             setBird();
         }
@@ -59,7 +60,7 @@ public class FlappyBird extends Game {
     private void setPip() {
         Random rand = new Random();
         int initialX = screenWidth + 10;
-        int initialY;
+        int initialY = screenHeight/5;
         for (int i = 0; i < 6; i++) {
             initialY = rand.nextInt(maxHeight)+minHeight;
             Pip pipD = new Pip(initialX, initialY - pipDown.getHeight(null), pipDown, -1, 0);

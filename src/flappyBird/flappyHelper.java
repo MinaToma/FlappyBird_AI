@@ -20,7 +20,7 @@ public class flappyHelper extends Helper {
 
     public static int widthGap = 450;
     public static int heightGap = 200;
-    public static int maxHeight = 400;
+    public static int maxHeight = 320;
     public static int minHeight = 30;
 
 

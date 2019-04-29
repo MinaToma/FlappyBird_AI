@@ -32,7 +32,7 @@ public class FlappyAIEngine {
 
     public void generateNewGeneration() {
         try {
-            PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/tempAI/Flappy-Bird-Genetic-Algorithms/interaction.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/home/mehisen/PycharmProjects/ML (copy)/interaction.txt", "UTF-8");
             writer.println("training");
             writer.close();
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class FlappyAIEngine {
                     String Data = new String();
                     try {
 
-                        PrintWriter writer = new PrintWriter("/mnt/844C248E4C247CD4/tempAI/Flappy-Bird-Genetic-Algorithms/interaction.txt", "UTF-8");
+                        PrintWriter writer = new PrintWriter("/home/mehisen/PycharmProjects/ML (copy)/interaction.txt", "UTF-8");
 
                         writer.println("prediction");
 
@@ -95,7 +95,7 @@ public class FlappyAIEngine {
 
     private static String waitForPrediciton(String Data) {
         try {
-            FileReader fr = new FileReader("/mnt/844C248E4C247CD4/tempAI/Flappy-Bird-Genetic-Algorithms/interaction.txt");
+            FileReader fr = new FileReader("/home/mehisen/PycharmProjects/ML (copy)/interaction.txt");
             BufferedReader br = new BufferedReader(fr);
 
             Data = br.readLine();

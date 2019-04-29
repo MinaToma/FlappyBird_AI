@@ -33,6 +33,10 @@ public class Player extends BaseObject {
         start = true;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void die() {
         running = false;
 
@@ -40,16 +44,17 @@ public class Player extends BaseObject {
             new Splash();
         } else {
 
-            setScore(0);
             lastScore = 0;
+            setScore(0);
+
             flappyBird.myGeneration.generateNewGeneration();
             flappyBird.initialize();
+
         }
     }
 
     public void setScore(int score) {
-        this.score = score + lastScore;
-        lastScore = score;
+        this.score = score ;
     }
 
     public void increaseScore(int add) {
