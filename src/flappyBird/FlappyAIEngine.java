@@ -13,10 +13,10 @@ import static flappyBird.flappyHelper.birds;
 
 public class FlappyAIEngine {
 
-    ArrayList<Bird> myBirds;
-    int numberOfBirds;
-    int currentFrameCount = 99;
-    int requireActionGap = 50;
+    private ArrayList<Bird> myBirds;
+    private int numberOfBirds;
+    private int currentFrameCount = 99;
+    private int requireActionGap = 50;
 
     public FlappyAIEngine(int numberOfBirds) {
 
@@ -24,8 +24,8 @@ public class FlappyAIEngine {
         myBirds = new ArrayList<>();
 
         for (int i = 0; i < numberOfBirds; i++) {
-            myBirds.add(new Bird(screenWidth / 2 - birds[0].getWidth(null) / 2,
-                    screenHeight / 2 - birds[0].getHeight(null) / 2, birds[1]));
+            myBirds.add(new Bird(screenWidth / 2f - birds[0].getWidth(null) / 2f,
+                    screenHeight / 2f - birds[0].getHeight(null) / 2f, birds[1]));
             handler.addObject(birdList, myBirds.get(i));
         }
     }
@@ -40,7 +40,7 @@ public class FlappyAIEngine {
         }
 
         String Data = new String();
-        while (Data == null || Data.equals("done") == false)
+        while (Data == null || !Data.equals("done"))
             Data = waitForPrediciton(Data);
     }
 
@@ -78,7 +78,7 @@ public class FlappyAIEngine {
 
                         writer.close();
 
-                        while (Data == null || (Data.equals("jump") == false && Data.equals("stay") == false))
+                        while (Data == null || (!Data.equals("jump") && !Data.equals("stay") ))
                             Data = waitForPrediciton(Data);
 
                         if (Data.equals("jump")) {

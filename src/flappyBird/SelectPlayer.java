@@ -66,12 +66,14 @@ public class SelectPlayer extends JPanel {
         startButton.addActionListener(e -> {
             if (textName.getText().length() > 0 && textName.getText().length() <= 20) {
                 String name = textName.getText();
+                if(sounds)
                 Sound.Play(clickSound, false);
                 new FlappyBird("Flappy Bird",name);
             }
         });
 
         backButton.addActionListener(e->{
+            if(sounds)
             Sound.Play(clickSound, false);
             new Splash();
         });

@@ -139,7 +139,7 @@ public class Settings extends JPanel {
         keyboardButton.setSize(btnDim);
         backButton.setSize(btnDim);
 
-        setCursorImage(panel, pathCursor);
+
 
     }
 }

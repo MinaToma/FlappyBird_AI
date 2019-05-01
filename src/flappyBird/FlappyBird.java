@@ -4,7 +4,6 @@ import atariCore.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Random;
 
 import static flappyBird.ObjectList.*;
@@ -46,8 +45,8 @@ public class FlappyBird extends Game {
     }
 
     private void setBird() {
-        bird = new Bird(screenWidth / 2 - birds[0].getWidth(null) / 2,
-                screenHeight / 2 - birds[0].getHeight(null) / 2, birds[1]);
+        bird = new Bird(screenWidth / 2f - birds[0].getWidth(null) / 2f,
+                screenHeight / 2f - birds[0].getHeight(null) / 2f, birds[1]);
 
         handler.addObject(birdList, bird);
     }
@@ -63,8 +62,8 @@ public class FlappyBird extends Game {
         int initialY = screenHeight/5;
         for (int i = 0; i < 6; i++) {
             initialY = rand.nextInt(maxHeight)+minHeight;
-            Pip pipD = new Pip(initialX, initialY - pipDown.getHeight(null), pipDown, -1, 0);
-            Pip pipU = new Pip(initialX, initialY + heightGap, pipUp, -1, 0);
+            Pip pipD = new Pip(initialX, initialY - pipDown.getHeight(null), pipDown, -1.5f, 0);
+            Pip pipU = new Pip(initialX, initialY + heightGap, pipUp, -1.5f, 0);
 
             handler.addObject(pipList, pipD);
             handler.addObject(pipList, pipU);
@@ -76,7 +75,7 @@ public class FlappyBird extends Game {
     }
 
     private void setBackground() {
-        Background back = new Background(0, 0, background);
+        Background back = new Background(0, 0, backgroundGame);
         handler.addObject(backgroundList, back);
     }
 

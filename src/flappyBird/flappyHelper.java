@@ -1,5 +1,6 @@
 package flappyBird;
 
+import atariCore.FileInOut;
 import atariCore.Helper;
 import atariCore.Sound;
 import jaco.mp3.player.MP3Player;
@@ -10,9 +11,12 @@ public class flappyHelper extends Helper {
 
     public static Image[] birds;
     public static Image background;
+    public static Image backgroundGame;
     public static Image pipDown;
     public static Image pipUp;
     public static String pathImages  ="src/Resources/Images/";
+    public static String pathSounds  ="src/Resources/Sounds/";
+    public static String pathFile  ="src/Resources/Files/";
     public static float gravity = 0.01f;
     public static float pressSpeed = -1;
     public static boolean startGame = false;
@@ -32,6 +36,8 @@ public class flappyHelper extends Helper {
 
 
 
+
+
     public flappyHelper() {
 
         setImages();
@@ -39,11 +45,11 @@ public class flappyHelper extends Helper {
     }
     private void setSounds()
     {
-        hitSound = Sound.setSound("src/Resources/Sounds/hit.mp3");
-        wingSound = Sound.setSound("src/Resources/Sounds/wing.mp3");
-        pointSound = Sound.setSound("src/Resources/Sounds/point.mp3");
-        selectSound = Sound.setSound("src/Resources/Sounds/select.mp3");
-        clickSound = Sound.setSound("src/Resources/Sounds/click.mp3");
+        hitSound = Sound.setSound(pathSounds + "hit.mp3");
+        wingSound = Sound.setSound(pathSounds + "wing.mp3");
+        pointSound = Sound.setSound(pathSounds + "point.mp3");
+        selectSound = Sound.setSound(pathSounds + "select.mp3");
+        clickSound = Sound.setSound(pathSounds + "click.mp3");
     }
 
     private void setImages()
@@ -58,6 +64,8 @@ public class flappyHelper extends Helper {
         pipDown = getImage(pathImages+"pipDOWN.png",2);
 
         pipUp = getImage(pathImages+"pipUP.png",2);
+
+        backgroundGame = getImage(pathImages+"flappy.png",1);
     }
 }
 

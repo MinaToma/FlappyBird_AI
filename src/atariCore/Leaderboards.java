@@ -47,36 +47,33 @@ public class Leaderboards extends JPanel {
     {
 
         top10 = new JLabel[10];
-        int xOffset = 10, yOffest = 190;
+        int xOffset = 10, yOffest = 210;
         for(int i=1 ; i<=10 ; i++)
         {
             if(record.length>i)
             {
                 String rec ,tmp;
                 if(i<10)
-                    rec = "0" + i + "   ";
+                    rec = "0" + i + "  ";
                 else
-                    rec = (i) + "   ";
+                    rec = (i) + "  ";
 
                 tmp = record[i-1].getName();
                 rec += tmp;
-                for(int j=tmp.length() ; j<=21 ; j++)
+                for(int j=tmp.length() ; j<=26 ; j++)
                     rec += ' ';
                 tmp = String.valueOf( record[i-1].getScore());
 
                 rec += tmp;
-                for(int j=tmp.length() ; j<=9 ; j++)
-                    rec += ' ';
-                tmp = String.valueOf( record[i-1].getLevel());
 
                 rec += tmp;
                 top10[i-1] = new JLabel(rec);
             }
             else{
-            String s =(i < 10 ? "0" + i : i) +"  .................... ........  ........";
+            String s =(i < 10 ? "0" + i : i) +"  .......................... ....................";
             top10[i-1] = new JLabel(s);}
             top10[i-1].setFont(Helper.setFont("src/Resources/Fonts/joystix monospace.ttf",35));
-            top10[i-1].setForeground(buttonBackgroundColor);
+            top10[i-1].setForeground(Color.WHITE);
                 top10[i-1].setBounds(xOffset,yOffest,Helper.screenWidth-40,35);
                 yOffest += 35;
 

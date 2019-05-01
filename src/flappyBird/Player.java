@@ -2,6 +2,7 @@ package flappyBird;
 
 
 import atariCore.BaseObject;
+import atariCore.FileInOut;
 import atariCore.Sound;
 
 import javax.swing.*;
@@ -41,6 +42,8 @@ public class Player extends BaseObject {
         running = false;
 
         if (!AIMode) {
+
+            FileInOut.addNewScoreToLeadboard(pathFile+"Leaderboards",name,score,0);
             new Splash();
         } else {
 

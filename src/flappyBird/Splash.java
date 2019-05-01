@@ -3,8 +3,7 @@ package flappyBird;
 import atariCore.Sound;
 
 import static atariCore.Helper.*;
-import static flappyBird.flappyHelper.clickSound;
-import static flappyBird.flappyHelper.startGame;
+import static flappyBird.flappyHelper.*;
 
 import java.util.ArrayList;
 
@@ -14,6 +13,7 @@ public class Splash extends atariCore.Splash {
         super("Flappy Bird", "src/Resources/Fonts/joystix monospace.ttf");
 
         newGameButton.addActionListener(e -> {
+            if(sounds)
             Sound.Play(clickSound, false);
             new SelectPlayer();
         });
@@ -22,16 +22,29 @@ public class Splash extends atariCore.Splash {
             running = true;
             AIMode = true;
             startGame = true;
+            if(sounds)
             Sound.Play(clickSound, false);
             new FlappyBird("Flappy Bird", "AI-Player");
+        });
+        LeaderboardsButton.addActionListener(e -> {
+            if(sounds)
+                Sound.Play(clickSound, false);
+            new Leaderboards(pathFile+"Leaderboards.txt");
+        });
+        settingsButton.addActionListener(e -> {
+            if (sounds)
+                Sound.Play(clickSound,false);
+            new Settings(sounds);
         });
 
         exitButton.addActionListener(e -> {
                     frame.dispose();
+                    if (sounds)
                     Sound.Play(clickSound, false);
                 }
 
         );
+
 
 
     }

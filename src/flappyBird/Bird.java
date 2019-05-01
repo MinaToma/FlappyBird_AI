@@ -52,7 +52,7 @@ public class Bird extends BaseObject {
     public void speedUp() {
 
         velY = -1;
-        if (!AIMode)
+        if (!AIMode && sounds)
             Sound.Play(wingSound, true);
     }
 
@@ -69,7 +69,7 @@ public class Bird extends BaseObject {
             handler.removeObject(birdList, this);
 
         if (birdList.size() == 0) {
-            if (!AIMode)
+            if (!AIMode && sounds)
                 Sound.Play(hitSound, true);
 
             ((Player) playerList.get(0)).die();
@@ -124,14 +124,15 @@ public class Bird extends BaseObject {
         boolean passedPip = false;
 
         for (BaseObject o : pipList)
-            if (o.getY() > 0 && Math.abs(o.getX() + o.getImageWidth() / 2f - x) == 0)
+            if (o.getY() > 0 && o.getX()+o.getImageWidth() - 20 < x && !((Pip)o).isInTheBack() ) {
                 passedPip = true;
-
+                ((Pip)o).setInTheBack(true);
+            }
 
         currentScore += passedPip ? 1 : 0;
 
         ((Player) playerList.get(0)).setScore(currentScore);
-        if (passedPip && !AIMode)
+        if (passedPip && !AIMode && sounds)
             Sound.Play(pointSound, true);
 
         return passedPip;

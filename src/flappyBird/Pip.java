@@ -14,14 +14,16 @@ import static flappyBird.flappyHelper.*;
 
 public class Pip extends BaseObject {
 
-
+    private boolean inTheBack;
 
     public Pip(float x, float y, Image image, float velX, float velY) {
         super(x, y, image, velX, velY);
+        inTheBack = false;
     }
 
     public Pip(float x, float y, Image image) {
         super(x, y, image);
+
     }
 
     @Override
@@ -31,6 +33,14 @@ public class Pip extends BaseObject {
         x+=velX;
 
         modfiyPip();
+    }
+
+    public boolean isInTheBack() {
+        return inTheBack;
+    }
+
+    public void setInTheBack(boolean inTheBack) {
+        this.inTheBack = inTheBack;
     }
 
     private void modfiyPip()
@@ -79,12 +89,11 @@ public class Pip extends BaseObject {
 
         if(needPip)
         {
-
             ((Player)playerList.get(0)).lastScore++;
             Random rand  = new Random();
             int initialY = rand.nextInt(maxHeight)+minHeight;
-            Pip pipD = new Pip(lastPosPip + widthGap ,initialY - pipDown.getHeight(null),pipDown,-1,0);
-            Pip pipU = new Pip(lastPosPip + widthGap  ,initialY + heightGap,pipUp,-1,0);
+            Pip pipD = new Pip(lastPosPip + widthGap ,initialY - pipDown.getHeight(null),pipDown,-1.5f,0);
+            Pip pipU = new Pip(lastPosPip + widthGap  ,initialY + heightGap,pipUp,-1.5f,0);
 
             handler.addObject(pipList,pipD);
             handler.addObject(pipList,pipU);

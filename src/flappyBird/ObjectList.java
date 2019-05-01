@@ -22,9 +22,9 @@ public class ObjectList extends BaseObjectList {
         backgroundList = new CopyOnWriteArrayList<>();
 
         handler.addHandler(backgroundList);
-
-        handler.addHandler(playerList);
         handler.addHandler(pipList);
         handler.addHandler(birdList);
+        handler.addHandler(playerList);
+
     }
 }
